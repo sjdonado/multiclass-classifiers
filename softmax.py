@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import dataset
 
-N = 108 # number of points per class
+N = 100 # number of points per class
 D = 2 # dimensionality
 K = 3 # number of classes
 
@@ -55,13 +55,14 @@ for i in range(epochs):
 
 
 # visualize the data
+fig = plt.figure()
 cmap = plt.cm.get_cmap("Spectral")
 
 plt.subplot(2, 1, 1)
 plt.scatter(X[:, 0], X[:, 1], c=y, s=20, cmap=cmap, edgecolors='k')
 
 # visualize decision boundary
-h = 0.22
+h = 0.02
 x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
 y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
@@ -75,5 +76,7 @@ Z = predicted_class.reshape(xx.shape)
 plt.subplot(2, 1, 2)
 plt.contourf(xx, yy, Z, cmap=cmap, alpha=0.8)
 plt.scatter(X[:, 0], X[:, 1], c=y, s=20, cmap=cmap, edgecolors='k')
+plt.xlim(xx.min(), xx.max())
+plt.ylim(yy.min(), yy.max())
 
 plt.show()
