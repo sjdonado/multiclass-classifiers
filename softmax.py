@@ -46,12 +46,12 @@ for i in range(epochs):
   W += -step_size*dW
   b += -step_size*db
 
-  # evaluate the training accuracy
+  # evaluate this iteration accuracy
   predicted_class = np.argmax(scores, axis=1)
-  iteration_accuracy = np.mean(predicted_class == y)
+  accuracy = np.mean(predicted_class == y)
 
   if i % 10 == 0:
-    print("iteration: {} loss: {} accuracy: {}".format(i, loss, iteration_accuracy))
+    print("iteration: {} loss: {} accuracy: {}".format(i, loss, accuracy))
 
 
 # visualize the data
@@ -59,6 +59,7 @@ fig = plt.figure()
 cmap = plt.cm.get_cmap("Spectral")
 
 plt.subplot(2, 1, 1)
+plt.title("N: {}, D: {}, K:{}".format(N, D, K))
 plt.scatter(X[:, 0], X[:, 1], c=y, s=20, cmap=cmap, edgecolors='k')
 
 # visualize decision boundary
@@ -74,9 +75,11 @@ predicted_class = np.argmax(scores, axis=1)
 Z = predicted_class.reshape(xx.shape)
 
 plt.subplot(2, 1, 2)
+plt.title("Accuracy: {}".format(accuracy))
 plt.contourf(xx, yy, Z, cmap=cmap, alpha=0.8)
 plt.scatter(X[:, 0], X[:, 1], c=y, s=20, cmap=cmap, edgecolors='k')
 plt.xlim(xx.min(), xx.max())
 plt.ylim(yy.min(), yy.max())
 
 plt.show()
+# fig.savefig('softmax.png')
